@@ -20,26 +20,37 @@ export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
   let startDate: string = '2021-01-01';
   let endDate: string = '2021-01-31';
 
-  // const [games, setgames] = useState<IGames>({
-  //   date: '',
-  //   games: [],
-  // });
-  // useEffect(() => {
-  //   teams.map((team) => {
-  //     teamIds.push(team.id);
-  //   });
+  const [games, setGames] = useState<IGames[]>([]);
+  useEffect(() => {
+    teams.map((team) => {
+      teamIds.push(team.id);
+    });
 
-  //   agent.TeamGames(teamIds, startDate, endDate).then((response) => {
-  //     console.log(response.dates);
-  //     // response.dates.map((date: any) => {
-  //     //   return setgames({
-  //     //     date: date.date,
-  //     //     games: [],
-  //     //   });
-  //     // });
-  //     // console.log(games);
-  //   });
-  // });
+    agent.TeamGames(teamIds, startDate, endDate).then((response) => {
+      setGames(
+        response.dates.map((date: any) => {
+          return {
+            date: date.date,
+            games: date.games.map((game: any) => {
+              return {
+                date: game.gameDate,
+                status: game.status.detailedState,
+                homeTeam: {
+                  teamName: game.teams.home.team.name,
+                  score: game.teams.home.score,
+                },
+                awayTeam: {
+                  teamName: game.teams.away.team.name,
+                  score: game.teams.away.score,
+                },
+              };
+            }),
+          };
+        })
+      );
+    });
+    console.log(games);
+  }, []);
 
   <GameSchedule />;
 

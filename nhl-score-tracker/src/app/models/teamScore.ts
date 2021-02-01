@@ -1,6 +1,6 @@
 import { ITeam } from './team';
 
 export interface ITeamScore {
-    team: ITeam,
+    teamName: string,
     score: number,
 }
