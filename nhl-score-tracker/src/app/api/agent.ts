@@ -15,6 +15,10 @@ const TeamDetail = (teamID: number) => {
     return request.get(`/teams/${teamID.toString()}/stats`);
 }
 
+const Teams = (teamIDs: number[]) => {
+    return request.get(`/teams/?teamId=${teamIDs.join()}&expand=team.stats`);
+}
+
 const TeamGames = (teamID: number[], startDate: string, endDate: string) =>{
     const startDateString: string = `&startDate=${startDate}`;
     const endDateString: string = `&endDate=${endDate}`;
@@ -29,7 +33,8 @@ const TeamGames = (teamID: number[], startDate: string, endDate: string) =>{
 
 export default {
     TeamDetail,
-    TeamGames
+    Teams,
+    TeamGames,
 }
 
 

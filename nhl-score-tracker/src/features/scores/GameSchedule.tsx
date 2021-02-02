@@ -1,10 +1,17 @@
 import React from 'react';
+import { IGames } from '../../app/models/games';
 import { GamesByDate } from './GamesByDate';
 
-export const GameSchedule = () => {
+interface IProps {
+  games: IGames[];
+}
+
+export const GameSchedule: React.FC<IProps> = ({ games }) => {
   return (
     <div>
-      <GamesByDate />
+      {games.map((game: IGames) => {
+        <GamesByDate games={game.games} />;
+      })}
     </div>
   );
 };
