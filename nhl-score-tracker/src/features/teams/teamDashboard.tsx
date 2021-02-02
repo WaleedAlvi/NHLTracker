@@ -117,4 +117,4 @@ const mapStateToProps = (state: ITeam) => {
   };
 };
 
-export default connect()(TeamDashboard);
+export default connect(mapStateToProps)(TeamDashboard);
