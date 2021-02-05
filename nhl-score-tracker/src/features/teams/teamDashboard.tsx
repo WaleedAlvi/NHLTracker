@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Segment,
-  Table,
-} from 'semantic-ui-react';
+import { Container, Grid, Segment, Table } from 'semantic-ui-react';
 import agent from '../../app/api/agent';
 import { IGames } from '../../app/models/games';
 import { ITeam } from '../../app/models/team';
