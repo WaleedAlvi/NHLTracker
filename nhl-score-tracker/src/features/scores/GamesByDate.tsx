@@ -7,11 +7,5 @@ interface IProps {
 }
 
 export const GamesByDate: React.FC<IProps> = ({ games }) => {
-  return (
-    <div>
-      {games.map((game) => {
-        console.log(game.status);
-      })}
-    </div>
-  );
+  return <div>{games.map((game) => {})}</div>;
 };

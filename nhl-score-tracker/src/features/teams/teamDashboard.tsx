@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table } from 'semantic-ui-react';
+import {
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Segment,
+  Table,
+} from 'semantic-ui-react';
 import agent from '../../app/api/agent';
 import { IGames } from '../../app/models/games';
 import { ITeam } from '../../app/models/team';
 import * as calculateStat from '../../app/shared/calculateTotal';
 import { GameSchedule } from '../scores/GameSchedule';
 import { TeamDetail } from './TeamDetail';
+import SemanticDatepicker from 'react-semantic-ui-datepickers';
+import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+
 interface IProps {
   teams: ITeam[];
   teamName: string;
@@ -14,9 +24,11 @@ interface IProps {
 export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
   teams.sort((a, b) => b.points - a.points);
   let teamIds: number[] = [];
-  let startDate: string = '2021-01-01';
-  let endDate: string = '2021-01-31';
+  const seasonStartDate: Date = new Date('2021-01-13');
+  const seasonEndDate: Date = new Date('2021-05-8');
 
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date('2021-02-28'));
   const [games, setGames] = useState<IGames[]>([]);
   useEffect(() => {
     teams.map((team) => {
@@ -24,7 +36,7 @@ export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
     });
 
     agent.TeamGames(teamIds, startDate, endDate).then((response) => {
-      console.log(teamIds, response);
+      // console.log(teamIds, response);
       setGames(
         response.dates.map((date: any) => {
           return {
@@ -47,11 +59,51 @@ export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
         })
       );
     });
-  }, []);
+  }, [startDate, endDate]);
+
+  const onStartDateChange = (event: any, data: any) => {
+    data.value > endDate
+      ? setStartDate(new Date())
+      : setStartDate(data.value === null ? seasonStartDate : data.value);
+  };
+
+  const onEndDateChange = (event: any, data: any) => {
+    setEndDate(data.value === null ? seasonEndDate : data.value);
+  };
 
   return (
     <Container>
       <Container>
+        <Segment>
+          <Grid columns={2} stackable textAlign="center">
+            <Grid.Row verticalAlign="middle">
+              <Grid.Column>
+                <SemanticDatepicker
+                  allowOnlyNumbers={true}
+                  value={new Date(startDate)}
+                  clearable={false}
+                  type="basic"
+                  onChange={onStartDateChange}
+                  minDate={seasonStartDate}
+                  maxDate={seasonEndDate}
+                />
+              </Grid.Column>
+
+              <Grid.Column>
+                <SemanticDatepicker
+                  allowOnlyNumbers={true}
+                  value={new Date(endDate)}
+                  clearable={false}
+                  type="basic"
+                  onChange={onEndDateChange}
+                  minDate={startDate}
+                  maxDate={seasonEndDate}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+
         <GameSchedule games={games} />
       </Container>
       <Table style={{ overflowX: 'auto' }}>

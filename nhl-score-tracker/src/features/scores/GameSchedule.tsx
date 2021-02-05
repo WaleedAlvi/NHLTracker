@@ -10,7 +10,7 @@ export const GameSchedule: React.FC<IProps> = ({ games }) => {
   return (
     <div>
       {games.map((game: IGames) => {
-        <GamesByDate games={game.games} />;
+        return <GamesByDate games={game.games} />;
       })}
     </div>
   );
