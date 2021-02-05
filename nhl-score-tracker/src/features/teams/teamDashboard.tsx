@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Grid, Segment, Table } from 'semantic-ui-react';
 import agent from '../../app/api/agent';
 import { IGames } from '../../app/models/games';
@@ -8,61 +8,39 @@ import { GameSchedule } from '../scores/GameSchedule';
 import { TeamDetail } from './TeamDetail';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+import { seasonEndDate, seasonStartDate } from '../../app/shared/common';
+import DatesStore from '../../app/stores/datesStore';
+import TeamsStore from '../../app/stores/teamsStore';
+import datesStore from '../../app/stores/datesStore';
 
 interface IProps {
   teams: ITeam[];
+  teamSchedule: IGames[];
   teamName: string;
 }
+export const TeamDashboard: React.FC<IProps> = ({
+  teams,
+  teamName,
+  teamSchedule,
+}) => {
+  const teamsStore = useContext(TeamsStore);
+  const dateStore = useContext(DatesStore);
 
-export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
   teams.sort((a, b) => b.points - a.points);
   let teamIds: number[] = [];
-  const seasonStartDate: Date = new Date('2021-01-13');
-  const seasonEndDate: Date = new Date('2021-05-8');
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date('2021-02-28'));
-  const [games, setGames] = useState<IGames[]>([]);
   useEffect(() => {
     teams.map((team) => {
       teamIds.push(team.id);
     });
 
-    agent.TeamGames(teamIds, startDate, endDate).then((response) => {
-      // console.log(teamIds, response);
-      setGames(
-        response.dates.map((date: any) => {
-          return {
-            date: date.date,
-            games: date.games.map((game: any) => {
-              return {
-                date: game.gameDate,
-                status: game.status.detailedState,
-                homeTeam: {
-                  teamName: game.teams.home.team.name,
-                  score: game.teams.home.score,
-                },
-                awayTeam: {
-                  teamName: game.teams.away.team.name,
-                  score: game.teams.away.score,
-                },
-              };
-            }),
-          };
-        })
-      );
-    });
-  }, [startDate, endDate]);
-
-  const onStartDateChange = (event: any, data: any) => {
-    data.value > endDate
-      ? setStartDate(new Date())
-      : setStartDate(data.value === null ? seasonStartDate : data.value);
-  };
-
-  const onEndDateChange = (event: any, data: any) => {
-    setEndDate(data.value === null ? seasonEndDate : data.value);
-  };
+    teamsStore.loadScheudle(
+      teamSchedule,
+      teamIds,
+      dateStore.startDate,
+      dateStore.endDate
+    );
+  }, [teamsStore, datesStore]);
 
   return (
     <Container>
@@ -73,10 +51,10 @@ export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
               <Grid.Column>
                 <SemanticDatepicker
                   allowOnlyNumbers={true}
-                  value={new Date(startDate)}
+                  value={new Date(dateStore.startDate)}
                   clearable={false}
                   type="basic"
-                  onChange={onStartDateChange}
+                  onChange={dateStore.setStartDate}
                   minDate={seasonStartDate}
                   maxDate={seasonEndDate}
                 />
@@ -85,11 +63,11 @@ export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
               <Grid.Column>
                 <SemanticDatepicker
                   allowOnlyNumbers={true}
-                  value={new Date(endDate)}
+                  value={new Date(dateStore.endDate)}
                   clearable={false}
                   type="basic"
-                  onChange={onEndDateChange}
-                  minDate={startDate}
+                  onChange={dateStore.setEndDate}
+                  minDate={dateStore.startDate}
                   maxDate={seasonEndDate}
                 />
               </Grid.Column>
@@ -97,7 +75,7 @@ export const TeamDashboard: React.FC<IProps> = ({ teams, teamName }) => {
           </Grid>
         </Segment>
 
-        <GameSchedule games={games} />
+        <GameSchedule games={teamSchedule} />
       </Container>
       <Table style={{ overflowX: 'auto' }}>
         <Table.Header>
