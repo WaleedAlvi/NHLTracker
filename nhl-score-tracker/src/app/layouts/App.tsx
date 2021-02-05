@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container } from 'semantic-ui-react';
 import NavBar from '../../features/nav/NavBar';
-import { TeamDashboard } from '../../features/teams/teamDashboard';
+import TeamDashboard from '../../features/teams/teamDashboard';
 import { HeadToHead } from '../../features/headtohead/HeadToHead';
 import { Route } from 'react-router-dom';
 import { HomePage } from '../../features/Home/HomePage';
@@ -9,7 +9,6 @@ import { useContext } from 'react';
 import TeamsStore from '../stores/teamsStore';
 import { observer } from 'mobx-react-lite';
 import { boysTeamIDs, girlsTeamIDs } from '../shared/common';
-import teams from '../api/teams';
 
 const App = () => {
   const teamsStore = useContext(TeamsStore);

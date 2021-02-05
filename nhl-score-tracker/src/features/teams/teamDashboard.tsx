@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container, Grid, Segment, Table } from 'semantic-ui-react';
-import agent from '../../app/api/agent';
 import { IGames } from '../../app/models/games';
 import { ITeam } from '../../app/models/team';
 import * as calculateStat from '../../app/shared/calculateTotal';
@@ -11,20 +10,17 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import { seasonEndDate, seasonStartDate } from '../../app/shared/common';
 import DatesStore from '../../app/stores/datesStore';
 import TeamsStore from '../../app/stores/teamsStore';
-import datesStore from '../../app/stores/datesStore';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   teams: ITeam[];
   teamSchedule: IGames[];
   teamName: string;
 }
-export const TeamDashboard: React.FC<IProps> = ({
-  teams,
-  teamName,
-  teamSchedule,
-}) => {
+
+const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
   const teamsStore = useContext(TeamsStore);
-  const dateStore = useContext(DatesStore);
+  const datesStore = useContext(DatesStore);
 
   teams.sort((a, b) => b.points - a.points);
   let teamIds: number[] = [];
@@ -37,8 +33,8 @@ export const TeamDashboard: React.FC<IProps> = ({
     teamsStore.loadScheudle(
       teamSchedule,
       teamIds,
-      dateStore.startDate,
-      dateStore.endDate
+      datesStore.startDate,
+      datesStore.endDate
     );
   }, [teamsStore, datesStore]);
 
@@ -51,10 +47,10 @@ export const TeamDashboard: React.FC<IProps> = ({
               <Grid.Column>
                 <SemanticDatepicker
                   allowOnlyNumbers={true}
-                  value={new Date(dateStore.startDate)}
+                  value={new Date(datesStore.startDate)}
                   clearable={false}
                   type="basic"
-                  onChange={dateStore.setStartDate}
+                  onChange={datesStore.setStartDate}
                   minDate={seasonStartDate}
                   maxDate={seasonEndDate}
                 />
@@ -63,11 +59,11 @@ export const TeamDashboard: React.FC<IProps> = ({
               <Grid.Column>
                 <SemanticDatepicker
                   allowOnlyNumbers={true}
-                  value={new Date(dateStore.endDate)}
+                  value={new Date(datesStore.endDate)}
                   clearable={false}
                   type="basic"
-                  onChange={dateStore.setEndDate}
-                  minDate={dateStore.startDate}
+                  onChange={datesStore.setEndDate}
+                  minDate={datesStore.startDate}
                   maxDate={seasonEndDate}
                 />
               </Grid.Column>
@@ -117,3 +113,4 @@ export const TeamDashboard: React.FC<IProps> = ({
     </Container>
   );
 };
+export default observer(TeamDashboard);
