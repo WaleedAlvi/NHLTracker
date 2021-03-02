@@ -26,7 +26,7 @@ const TeamGames = (teamID: number[], startDate: Date, endDate: Date) =>{
     let teamIDString: string = '';
 
     teamID.map((teamID: number, i: number) => {
-        teamIDString += i === 0 ? `teamId=${teamID}` : `&teamId=${teamID}`;
+        return teamIDString += i === 0 ? `teamId=${teamID}` : `&teamId=${teamID}`;
     })
     console.log(`/schedule?${teamIDString}${startDateString}${endDateString}`);
     return request.get(`/schedule?${teamIDString}${startDateString}${endDateString}`);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ITeam } from '../../app/models/team';
 import { teamCategory } from '../../app/shared/enums';
-import { ProgressBar } from './ProgressBar';
+import ProgressBar from './ProgressBar';
 import * as calculateStat from '../../app/shared/calculateTotal';
-import { Header, Segment } from 'semantic-ui-react';
+import { observer } from 'mobx-react-lite';
 
 interface IProp {
   boysTeam: ITeam[];
@@ -13,7 +13,7 @@ interface IProp {
   category: teamCategory;
 }
 
-export const HeadToHeadCategory: React.FC<IProp> = ({
+const HeadToHeadCategory: React.FC<IProp> = ({
   boysTeam,
   girlsTeam,
   boysColour,
@@ -88,3 +88,5 @@ export const HeadToHeadCategory: React.FC<IProp> = ({
     </div>
   );
 };
+
+export default observer(HeadToHeadCategory);

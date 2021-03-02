@@ -2,6 +2,7 @@ import React from 'react';
 import { ITeam } from '../../app/models/team';
 import { teamCategory } from '../../app/shared/enums';
 import * as calculateStat from '../../app/shared/calculateTotal';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   teams: ITeam[];
@@ -11,7 +12,7 @@ interface IProps {
   rightAlign: boolean;
 }
 
-export const ProgressBar: React.FC<IProps> = ({
+const ProgressBar: React.FC<IProps> = ({
   teams,
   otherTeams,
   category,
@@ -70,3 +71,5 @@ export const ProgressBar: React.FC<IProps> = ({
     </div>
   );
 };
+
+export default observer(ProgressBar);

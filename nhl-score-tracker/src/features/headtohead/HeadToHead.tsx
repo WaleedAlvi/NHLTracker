@@ -2,14 +2,15 @@ import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import { ITeam } from '../../app/models/team';
 import { teamCategory } from '../../app/shared/enums';
-import { HeadToHeadCategory } from './HeadToHeadCategory';
+import HeadToHeadCategory from './HeadToHeadCategory';
+import { observer } from 'mobx-react-lite';
 
 interface IProp {
   boysTeam: ITeam[];
   girlsTeam: ITeam[];
 }
 
-export const HeadToHead: React.FC<IProp> = ({ boysTeam, girlsTeam }) => {
+const HeadToHead: React.FC<IProp> = ({ boysTeam, girlsTeam }) => {
   const girlsColour: string = 'teal';
   const boysColour: string = 'orange';
 
@@ -70,3 +71,5 @@ export const HeadToHead: React.FC<IProp> = ({ boysTeam, girlsTeam }) => {
     </Segment>
   );
 };
+
+export default observer(HeadToHead);

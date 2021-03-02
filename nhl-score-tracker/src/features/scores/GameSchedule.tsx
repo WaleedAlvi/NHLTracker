@@ -1,12 +1,13 @@
 import React from 'react';
 import { IGames } from '../../app/models/games';
-import { GamesByDate } from './GamesByDate';
+import GamesByDate from './GamesByDate';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   games: IGames[];
 }
 
-export const GameSchedule: React.FC<IProps> = ({ games }) => {
+const GameSchedule: React.FC<IProps> = ({ games }) => {
   return (
     <div>
       {games.map((game: IGames) => {
@@ -15,3 +16,5 @@ export const GameSchedule: React.FC<IProps> = ({ games }) => {
     </div>
   );
 };
+
+export default observer(GameSchedule);

@@ -10,6 +10,7 @@ class TeamsStore {
     @observable boysSchedule: IGames[] = [];
     @observable girlsSchedule: IGames[] = [];
 
+
     @action loadTeam = (lstOfTeams: ITeam[], teamIds: number[]) => {
         agent.Teams(teamIds).then((teams) => {
             teams.teams.map((team: any) => {
@@ -23,7 +24,7 @@ class TeamsStore {
                     overTimeLoses: team.teamStats[0].splits[0].stat.ot,
                     points: team.teamStats[0].splits[0].stat.pts,
                     nhlURL: team.officialSiteUrl,
-                    logo: '',
+                    logo: `/assets/${team.id}_logo.png`,
                 }))
             })
         })

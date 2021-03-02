@@ -1,12 +1,13 @@
 import React from 'react';
 import { Image, Table } from 'semantic-ui-react';
 import { ITeam } from '../../app/models/team';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   teams: ITeam[];
 }
 
-export const TeamDetail: React.FC<IProps> = ({ teams }) => {
+const TeamDetail: React.FC<IProps> = ({ teams }) => {
   return (
     <Table.Body>
       {teams.map((team) => {
@@ -14,7 +15,7 @@ export const TeamDetail: React.FC<IProps> = ({ teams }) => {
           return (
             <Table.Row key={team.name} textAlign="center">
               <Table.Cell>
-                <Image verticalAlign="middle" src={team.logo} size="tiny" />
+                <Image verticalAlign="middle" src={team.logo} size="mini" />
               </Table.Cell>
               <Table.Cell>
                 <a href={team.nhlURL}>{team.name}</a>
@@ -30,3 +31,5 @@ export const TeamDetail: React.FC<IProps> = ({ teams }) => {
     </Table.Body>
   );
 };
+
+export default observer(TeamDetail);

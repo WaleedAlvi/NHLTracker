@@ -3,8 +3,8 @@ import { Container, Grid, Segment, Table } from 'semantic-ui-react';
 import { IGames } from '../../app/models/games';
 import { ITeam } from '../../app/models/team';
 import * as calculateStat from '../../app/shared/calculateTotal';
-import { GameSchedule } from '../scores/GameSchedule';
-import { TeamDetail } from './TeamDetail';
+import GameSchedule from '../scores/GameSchedule';
+import TeamDetail from './TeamDetail';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import { seasonEndDate, seasonStartDate } from '../../app/shared/common';
@@ -36,7 +36,7 @@ const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
       datesStore.startDate,
       datesStore.endDate
     );
-  }, [teamsStore, datesStore]);
+  }, [datesStore.startDate, datesStore.endDate]);
 
   return (
     <Container>
@@ -69,9 +69,8 @@ const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+          <GameSchedule games={teamSchedule} />
         </Segment>
-
-        <GameSchedule games={teamSchedule} />
       </Container>
       <Table style={{ overflowX: 'auto' }}>
         <Table.Header>

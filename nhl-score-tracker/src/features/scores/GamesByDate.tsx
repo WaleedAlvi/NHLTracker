@@ -1,11 +1,14 @@
 import React from 'react';
 import { IGameStatus } from '../../app/models/gameStatus';
-import { GameScore } from './GameScore';
+import GameScore from './GameScore';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   games: IGameStatus[];
 }
 
-export const GamesByDate: React.FC<IProps> = ({ games }) => {
+const GamesByDate: React.FC<IProps> = ({ games }) => {
   return <div>{games.map((game) => {})}</div>;
 };
+
+export default observer(GamesByDate);
