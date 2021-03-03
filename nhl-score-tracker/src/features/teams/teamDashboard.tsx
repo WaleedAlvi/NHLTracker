@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Grid, Segment, Table } from 'semantic-ui-react';
 import { IGames } from '../../app/models/games';
 import { ITeam } from '../../app/models/team';
@@ -8,9 +8,8 @@ import TeamDetail from './TeamDetail';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import { seasonEndDate, seasonStartDate } from '../../app/shared/common';
-import DatesStore from '../../app/stores/datesStore';
-import TeamsStore from '../../app/stores/teamsStore';
 import { observer } from 'mobx-react-lite';
+import { useStore } from '../../app/stores/rootStore';
 
 interface IProps {
   teams: ITeam[];
@@ -19,10 +18,9 @@ interface IProps {
 }
 
 const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
-  const teamsStore = useContext(TeamsStore);
-  const datesStore = useContext(DatesStore);
+  const { teamsStore, datesStore } = useStore();
 
-  teams.sort((a, b) => b.points - a.points);
+  teams.slice().sort((a, b) => b.points - a.points);
   let teamIds: number[] = [];
 
   useEffect(() => {

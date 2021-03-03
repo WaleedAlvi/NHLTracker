@@ -5,13 +5,12 @@ import TeamDashboard from '../../features/teams/teamDashboard';
 import HeadToHead from '../../features/headtohead/HeadToHead';
 import { Route } from 'react-router-dom';
 import HomePage from '../../features/Home/HomePage';
-import { useContext } from 'react';
-import TeamsStore from '../stores/teamsStore';
 import { observer } from 'mobx-react-lite';
 import { boysTeamIDs, girlsTeamIDs } from '../shared/common';
+import { useStore } from '../stores/rootStore';
 
 const App = () => {
-  const teamsStore = useContext(TeamsStore);
+  const { teamsStore } = useStore();
 
   useEffect(() => teamsStore.loadTeam(teamsStore.boysTeam, boysTeamIDs), [
     teamsStore,

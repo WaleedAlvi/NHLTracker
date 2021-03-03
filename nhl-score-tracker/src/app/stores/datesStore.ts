@@ -1,13 +1,16 @@
-import {observable, action} from 'mobx';
-import {createContext} from 'react';
+import { makeAutoObservable } from 'mobx';
 import { seasonStartDate, seasonEndDate } from '../../app/shared/common';
 
-class DatesStore {
-    //teamsStore = useContext(TeamsStore);
-    @observable startDate: Date = new Date();
-    @observable endDate: Date = new Date('2021-04-05');
+export default class DatesStore {
+    startDate: Date = new Date();
+    endDate: Date = new Date();
 
-    @action setStartDate = (event: any, data: any, ) => {
+    constructor() {
+        this.endDate.setDate(this.startDate.getDate() + parseInt('30'));
+        makeAutoObservable(this);
+    }
+
+    setStartDate = (event: any, data: any, ) => {
         console.log(this.startDate);
         data.value > this.endDate
         ? this.startDate = new Date()
@@ -15,10 +18,10 @@ class DatesStore {
         console.log(this.startDate);
     }
 
-    @action setEndDate = (event: any, data: any) => {
+    setEndDate = (event: any, data: any) => {
         console.log(data.value);
         this.endDate = data.value === null ? seasonEndDate : data.value;
     }
 }
 
-export default createContext(new DatesStore())
+// export default createContext(new DatesStore())

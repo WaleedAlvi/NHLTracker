@@ -5,10 +5,13 @@ import './app/layouts/styles.css';
 import App from './app/layouts/App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css';
+import { StoreContext, store } from './app/stores/rootStore';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <StoreContext.Provider value={store}>
+      <App />
+    </StoreContext.Provider>
   </BrowserRouter>,
   document.getElementById('root')
 );
