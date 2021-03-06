@@ -11,7 +11,12 @@ const GameSchedule: React.FC<IProps> = ({ games }) => {
   return (
     <div>
       {games.map((game: IGames) => {
-        return <GamesByDate games={game.games} />;
+        return (
+          <div style={{}}>
+            <p>{game.date}</p>
+            <GamesByDate games={game.games} />
+          </div>
+        );
       })}
     </div>
   );

@@ -8,7 +8,13 @@ interface IProps {
 }
 
 const GamesByDate: React.FC<IProps> = ({ games }) => {
-  return <div>{games.map((game) => {})}</div>;
+  return (
+    <div>
+      {games.map((game) => {
+        return <GameScore game={game}></GameScore>;
+      })}
+    </div>
+  );
 };
 
 export default observer(GamesByDate);

@@ -36,11 +36,12 @@ export default class TeamsStore {
     }
 
     loadScheudle = (teamSchedule: IGames[], teamIds: number[] ,startDate: Date, endDate: Date) => {
+        teamSchedule.length = 0; 
         agent.TeamGames(teamIds, startDate, endDate).then((scheudle) => {
-            console.log(scheudle);
+            console.log(scheudle.dates);
             runInAction(() => {
                 scheudle.dates.map((date: any) => {
-                    return (teamSchedule.push({
+                    let sched: IGames = {
                         date: date.date,
                         games: date.games.map((game: any) => {
                             return {
@@ -49,14 +50,17 @@ export default class TeamsStore {
                                 homeTeam: {
                                   teamName: game.teams.home.team.name,
                                   score: game.teams.home.score,
+                                  logo: `/assets/${game.teams.home.team.id}_logo.png`,
                                 },
                                 awayTeam: {
                                   teamName: game.teams.away.team.name,
                                   score: game.teams.away.score,
+                                  logo: `/assets/${game.teams.away.team.id}_logo.png`,
                                 },
                             };
                         }),
-                    }))
+                    }
+                    teamSchedule.push(sched);
                 })
             })
         })

@@ -6,22 +6,17 @@ export default class DatesStore {
     endDate: Date = new Date();
 
     constructor() {
-        this.endDate.setDate(this.startDate.getDate() + parseInt('30'));
+        this.endDate.setDate(this.startDate.getDate() + parseInt('3'));
         makeAutoObservable(this);
     }
 
     setStartDate = (event: any, data: any, ) => {
-        console.log(this.startDate);
         data.value > this.endDate
         ? this.startDate = new Date()
         : this.startDate = data.value === null ? seasonStartDate : data.value;
-        console.log(this.startDate);
     }
 
     setEndDate = (event: any, data: any) => {
-        console.log(data.value);
         this.endDate = data.value === null ? seasonEndDate : data.value;
     }
 }
-
-// export default createContext(new DatesStore())
