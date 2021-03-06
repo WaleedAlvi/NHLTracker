@@ -2,21 +2,42 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { IGameStatus } from '../../app/models/gameStatus';
 import TeamScore from './TeamScore';
+import { Segment } from 'semantic-ui-react';
 
 interface IProps {
   game: IGameStatus;
 }
 
 const GameScore: React.FC<IProps> = ({ game }) => {
-  const homeStyle: React.CSSProperties = { marginTop: '10px' };
-  const awayStyle: React.CSSProperties = { marginBottom: '10px' };
-
   return (
-    <div style={{ border: '1px solid black', margin: 5, padding: 5 }}>
-      <div>{game.status}</div>
-      <TeamScore teamScore={game.awayTeam} />
-      <TeamScore teamScore={game.homeTeam} />
-    </div>
+    <Segment
+      style={{
+        margin: 5,
+        padding: 10,
+        minWidth: 225,
+        maxWidth: 225,
+        minHeight: 125,
+        maxHeight: 125,
+      }}
+    >
+      <div style={{ marginBottom: 5 }}>{game.status}</div>
+      <TeamScore
+        teamScore={game.awayTeam}
+        Style={{
+          marginBottom: 5,
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      />
+      <TeamScore
+        teamScore={game.homeTeam}
+        Style={{
+          marginTop: 5,
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      />
+    </Segment>
   );
 };
 

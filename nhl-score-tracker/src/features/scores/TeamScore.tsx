@@ -4,11 +4,12 @@ import { observer } from 'mobx-react-lite';
 
 interface IProps {
   teamScore: ITeamScore;
+  Style: React.CSSProperties;
 }
 
-const TeamScore: React.FC<IProps> = ({ teamScore }) => {
+const TeamScore: React.FC<IProps> = ({ teamScore, Style }) => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={Style}>
       <img
         src={teamScore.logo}
         style={{ width: '35px', height: 'auto', fontSize: '.78571429rem' }}

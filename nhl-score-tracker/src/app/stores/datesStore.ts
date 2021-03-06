@@ -6,7 +6,7 @@ export default class DatesStore {
     endDate: Date = new Date();
 
     constructor() {
-        this.endDate.setDate(this.startDate.getDate() + parseInt('3'));
+        this.endDate.setDate(this.startDate.getDate() + parseInt('1'));
         makeAutoObservable(this);
     }
 
