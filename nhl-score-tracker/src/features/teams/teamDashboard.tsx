@@ -22,12 +22,11 @@ const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
 
   teams.slice().sort((a, b) => b.points - a.points);
   let teamIds: number[] = [];
+  teams.map((team) => {
+    teamIds.push(team.id);
+  });
 
   useEffect(() => {
-    teams.map((team) => {
-      teamIds.push(team.id);
-    });
-
     teamsStore.loadScheudle(
       teamSchedule,
       teamIds,

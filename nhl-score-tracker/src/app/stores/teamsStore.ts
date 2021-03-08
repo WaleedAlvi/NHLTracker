@@ -36,7 +36,7 @@ export default class TeamsStore {
     }
 
     loadScheudle = (teamSchedule: IGames[], teamIds: number[] ,startDate: Date, endDate: Date) => {
-        teamSchedule.length = 0; 
+        let teamGames: IGames[] = [];
         agent.TeamGames(teamIds, startDate, endDate).then((scheudle) => {
             console.log(scheudle.dates);
             runInAction(() => {
@@ -60,7 +60,14 @@ export default class TeamsStore {
                             };
                         }),
                     }
-                    teamSchedule.push(sched);
+                    teamGames.push(sched);
+                })
+            })
+        }).then(() => {
+            teamSchedule.length = 0;
+            runInAction(() => {
+                teamGames.map((ss: IGames) => {
+                    teamSchedule.push(ss);
                 })
             })
         })

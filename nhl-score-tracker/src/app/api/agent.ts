@@ -21,8 +21,8 @@ const Teams = (teamIDs: number[]) => {
 
 const TeamGames = (teamID: number[], startDate: Date, endDate: Date) =>{
 
-    const startDateString: string = `&startDate=${startDate.toISOString().split('T')[0]}`;
-    const endDateString: string = `&endDate=${endDate.toISOString().split('T')[0]}`;
+    const startDateString: string = `&startDate=${startDate.toLocaleDateString()}`;
+    const endDateString: string = `&endDate=${endDate.toLocaleDateString()}`;
     let teamIDString: string = '';
 
     teamID.map((teamID: number, i: number) => {
