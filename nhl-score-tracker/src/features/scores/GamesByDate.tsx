@@ -30,8 +30,8 @@ const GamesByDate: React.FC<IProps> = ({ games }) => {
 
   return (
     <Carousel responsive={responsive}>
-      {games.map((game) => {
-        return <GameScore game={game}></GameScore>;
+      {games.map((game, index) => {
+        return <GameScore key={index} game={game}></GameScore>;
       })}
     </Carousel>
   );

@@ -20,10 +20,9 @@ interface IProps {
 const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
   const { teamsStore, datesStore } = useStore();
 
-  teams.slice().sort((a, b) => b.points - a.points);
   let teamIds: number[] = [];
   teams.map((team) => {
-    teamIds.push(team.id);
+    return teamIds.push(team.id);
   });
 
   useEffect(() => {
@@ -33,7 +32,13 @@ const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
       datesStore.startDate,
       datesStore.endDate
     );
-  }, [datesStore.startDate, datesStore.endDate]);
+  }, [
+    datesStore.startDate,
+    datesStore.endDate,
+    teamSchedule,
+    teamIds,
+    teamsStore,
+  ]);
 
   return (
     <Container>

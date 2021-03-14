@@ -38,41 +38,46 @@ export default class TeamsStore {
     loadScheudle = (teamSchedule: IGames[], teamIds: number[] ,startDate: Date, endDate: Date) => {
         let teamGames: IGames[] = [];
         agent.TeamGames(teamIds, startDate, endDate).then((scheudle) => {
-            console.log(scheudle.dates);
             runInAction(() => {
                 scheudle.dates.map((date: any) => {
-                    let sched: IGames = {
-                        date: date.date,
-                        games: date.games.map((game: any) => {
-                            return {
-                                date: game.gameDate,
-                                status: game.status.detailedState,
-                                homeTeam: {
-                                  teamName: game.teams.home.team.name,
-                                  score: game.teams.home.score,
-                                  logo: `/assets/${game.teams.home.team.id}_logo.png`,
-                                },
-                                awayTeam: {
-                                  teamName: game.teams.away.team.name,
-                                  score: game.teams.away.score,
-                                  logo: `/assets/${game.teams.away.team.id}_logo.png`,
-                                },
-                            };
-                        }),
-                    }
-                    teamGames.push(sched);
+                    return(
+                        teamGames.push({
+                            date: date.date,
+                            games: date.games.map((game: any) => {
+                                return {
+                                    date: game.gameDate,
+                                    status: game.status.detailedState,
+                                    homeTeam: {
+                                      teamName: game.teams.home.team.name,
+                                      score: game.teams.home.score,
+                                      logo: `/assets/${game.teams.home.team.id}_logo.png`,
+                                    },
+                                    awayTeam: {
+                                      teamName: game.teams.away.team.name,
+                                      score: game.teams.away.score,
+                                      logo: `/assets/${game.teams.away.team.id}_logo.png`,
+                                    },
+                                };
+                            }),
+                        })
+                    )
                 })
             })
         }).then(() => {
             teamSchedule.length = 0;
             runInAction(() => {
                 teamGames.map((ss: IGames) => {
-                    teamSchedule.push(ss);
+                    return(teamSchedule.push(ss));
                 })
             })
         })
     }
+
+    get sortedBoysTeams() {
+        return this.boysTeam.slice().sort((a, b) => b.points - a.points);
+    }
+
+    get sortedGirlsTeams() {
+        return this.girlsTeam.slice().sort((a, b) => b.points - a.points);
+    }
 }
-
-// export default createContext(new TeamsStore());
-

@@ -5,7 +5,7 @@ export default {}
 const CalcuateTotalGamesPlayed = (teams: ITeam[]) => {
   let total: number = 0;
   teams.map((team) => {
-    total += team.gamesPlayed;
+    return total += team.gamesPlayed;
   })
   return total;
   };
@@ -13,7 +13,7 @@ const CalcuateTotalGamesPlayed = (teams: ITeam[]) => {
   const CalcuateTotalWins = (teams: ITeam[]) => {
     let total: number = 0;
     teams.map((team) => {
-    total += team.wins;
+      return total += team.wins;
   })
   return total;
   };
@@ -21,7 +21,7 @@ const CalcuateTotalGamesPlayed = (teams: ITeam[]) => {
   const CalcuateTotalLoses = (teams: ITeam[]) => {
     let total: number = 0;
     teams.map((team) => {
-    total += team.losses;
+      return total += team.losses;
   })
   return total;
   };
@@ -29,7 +29,7 @@ const CalcuateTotalGamesPlayed = (teams: ITeam[]) => {
   const CalcuateTotalOTLoses = (teams: ITeam[]) => {
     let total: number = 0;
     teams.map((team) => {
-    total += team.overTimeLoses;
+    return total += team.overTimeLoses;
   })
   return total;
   };
@@ -37,7 +37,7 @@ const CalcuateTotalGamesPlayed = (teams: ITeam[]) => {
   const CalcuateTotalPoints = (teams: ITeam[]) => {
     let total: number = 0;
     teams.map((team) => {
-    total += team.points;
+    return total += team.points;
   })
   return total;
   };
@@ -82,7 +82,8 @@ const CalcuateTotalGamesPlayed = (teams: ITeam[]) => {
     CalcuateTotalLoses as TotalLoses, 
     CalcuateTotalOTLoses as TotalOTLoses, 
     CalcuateTotalPoints as TotalPoints,
-    SelectCalculation
+    SelectCalculation,
+    CalculateWinPercentage
   }
 
 

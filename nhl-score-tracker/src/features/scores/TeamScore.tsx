@@ -11,6 +11,7 @@ const TeamScore: React.FC<IProps> = ({ teamScore, Style }) => {
   return (
     <div style={Style}>
       <img
+        alt={teamScore.teamName}
         src={teamScore.logo}
         style={{ width: '35px', height: 'auto', fontSize: '.78571429rem' }}
       />

@@ -11,9 +11,9 @@ interface IProps {
 const GameSchedule: React.FC<IProps> = ({ games }) => {
   return (
     <div>
-      {games.map((game: IGames) => {
+      {games.map((game: IGames, index) => {
         return (
-          <Segment style={{ marginTop: 10 }}>
+          <Segment key={index} style={{ marginTop: 10 }}>
             <h3 style={{ marginLeft: 6 }}>{game.date}</h3>
             <GamesByDate games={game.games} />
           </Segment>

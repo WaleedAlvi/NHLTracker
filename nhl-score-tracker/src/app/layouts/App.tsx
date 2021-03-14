@@ -27,14 +27,14 @@ const App = () => {
         <Route exact path="/" component={HomePage} />
         <Route path="/boysdashboard">
           <TeamDashboard
-            teams={teamsStore.boysTeam}
+            teams={teamsStore.sortedBoysTeams}
             teamSchedule={teamsStore.boysSchedule}
             teamName={'The Boys'}
           />
         </Route>
         <Route path="/girlsdashboard" component={TeamDashboard}>
           <TeamDashboard
-            teams={teamsStore.girlsTeam}
+            teams={teamsStore.sortedGirlsTeams}
             teamSchedule={teamsStore.girlsSchedule}
             teamName={'The Girls'}
           />
