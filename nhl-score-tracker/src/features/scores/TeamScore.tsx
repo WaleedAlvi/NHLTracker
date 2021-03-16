@@ -5,9 +5,10 @@ import { observer } from 'mobx-react-lite';
 interface IProps {
   teamScore: ITeamScore;
   Style: React.CSSProperties;
+  WinningTeam: string;
 }
 
-const TeamScore: React.FC<IProps> = ({ teamScore, Style }) => {
+const TeamScore: React.FC<IProps> = ({ teamScore, Style, WinningTeam }) => {
   return (
     <div style={Style}>
       <img
@@ -15,8 +16,24 @@ const TeamScore: React.FC<IProps> = ({ teamScore, Style }) => {
         src={teamScore.logo}
         style={{ width: '35px', height: 'auto', fontSize: '.78571429rem' }}
       />
-      <div>{teamScore.teamName}</div>
-      <div>{teamScore.score}</div>
+      <div
+        style={
+          WinningTeam === teamScore.teamName
+            ? { fontWeight: 'bold', fontSize: 15 }
+            : { fontSize: 15 }
+        }
+      >
+        {teamScore.teamName}
+      </div>
+      <div
+        style={
+          WinningTeam === teamScore.teamName
+            ? { fontWeight: 'bold', fontSize: 20 }
+            : { fontSize: 20 }
+        }
+      >
+        {teamScore.score}
+      </div>
     </div>
   );
 };

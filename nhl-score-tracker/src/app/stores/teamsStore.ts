@@ -13,6 +13,15 @@ export default class TeamsStore {
         makeAutoObservable(this);
     }
 
+    getWinningTeam = (homeTeam: any, awayTeam: any) => {
+        if (homeTeam.score > awayTeam.score) {
+            return homeTeam.team.name;
+        } else if (homeTeam.score < awayTeam.score) {
+            return awayTeam.team.name;
+        } else {
+            return '';
+        }
+    }
 
     loadTeam = (lstOfTeams: ITeam[], teamIds: number[]) => {
         agent.Teams(teamIds).then((teams) => {
@@ -47,6 +56,7 @@ export default class TeamsStore {
                                 return {
                                     date: game.gameDate,
                                     status: game.status.detailedState,
+                                    winningTeam: this.getWinningTeam(game.teams.home, game.teams.away),
                                     homeTeam: {
                                       teamName: game.teams.home.team.name,
                                       score: game.teams.home.score,

@@ -12,30 +12,34 @@ const GameScore: React.FC<IProps> = ({ game }) => {
   return (
     <Segment
       style={{
-        margin: 5,
-        padding: 10,
-        minWidth: 225,
-        maxWidth: 225,
-        minHeight: 125,
-        maxHeight: 125,
+        margin: 4,
+        minHeight: 140,
+        alignItems: 'center',
+        display: 'grid',
       }}
     >
-      <div style={{ marginBottom: 5 }}>{game.status}</div>
       <TeamScore
         teamScore={game.awayTeam}
         Style={{
           marginBottom: 5,
           display: 'flex',
           justifyContent: 'space-between',
+          alignItems: 'center',
         }}
+        WinningTeam={game.winningTeam}
       />
+      <div style={{ textAlign: 'center', fontSize: 12, color: 'green' }}>
+        {game.status}
+      </div>
       <TeamScore
         teamScore={game.homeTeam}
         Style={{
           marginTop: 5,
           display: 'flex',
           justifyContent: 'space-between',
+          alignItems: 'center',
         }}
+        WinningTeam={game.winningTeam}
       />
     </Segment>
   );
