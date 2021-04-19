@@ -14,6 +14,7 @@ const GameScore: React.FC<IProps> = ({ game }) => {
       style={{
         margin: 4,
         minHeight: 140,
+        minWidth: 240,
         alignItems: 'center',
         display: 'grid',
       }}

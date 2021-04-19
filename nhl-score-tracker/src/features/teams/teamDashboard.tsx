@@ -10,6 +10,7 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import { seasonEndDate, seasonStartDate } from '../../app/shared/common';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../app/stores/rootStore';
+import TeamTable from './TeamTable';
 
 interface IProps {
   teams: ITeam[];
@@ -42,6 +43,8 @@ const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
 
   return (
     <Container>
+      <TeamTable teams={teams} teamName={teamName} />
+
       <Container>
         <Segment>
           <Grid columns={2} stackable textAlign="center">
@@ -74,43 +77,6 @@ const TeamDashboard: React.FC<IProps> = ({ teams, teamName, teamSchedule }) => {
           <GameSchedule games={teamSchedule} />
         </Segment>
       </Container>
-      <Table style={{ overflowX: 'auto' }}>
-        <Table.Header>
-          <Table.Row textAlign="center">
-            <Table.HeaderCell>{teamName}</Table.HeaderCell>
-            <Table.HeaderCell>Team</Table.HeaderCell>
-            <Table.HeaderCell>Games Played</Table.HeaderCell>
-            <Table.HeaderCell>Wins</Table.HeaderCell>
-            <Table.HeaderCell>Loses</Table.HeaderCell>
-            <Table.HeaderCell>OT Loses</Table.HeaderCell>
-            <Table.HeaderCell>Points</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <TeamDetail teams={teams} />
-
-        <Table.Footer>
-          <Table.Row textAlign="center">
-            <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Totals</Table.HeaderCell>
-            <Table.HeaderCell>
-              {calculateStat.TotalGamesPlayed(teams)}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              {calculateStat.TotalWins(teams)}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              {calculateStat.TotalLoses(teams)}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              {calculateStat.TotalOTLoses(teams)}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              <b>{calculateStat.TotalPoints(teams)}</b>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
     </Container>
   );
 };

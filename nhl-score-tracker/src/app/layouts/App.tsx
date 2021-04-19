@@ -6,7 +6,14 @@ import HeadToHead from '../../features/headtohead/HeadToHead';
 import { Route } from 'react-router-dom';
 import HomePage from '../../features/Home/HomePage';
 import { observer } from 'mobx-react-lite';
-import { boysTeamIDs, girlsTeamIDs } from '../shared/common';
+import {
+  boysTeamIDs,
+  girlsTeamIDs,
+  eastTeamIDs,
+  westTeamIDs,
+  centralTeamIDs,
+  northTeamIDs,
+} from '../shared/common';
 import { useStore } from '../stores/rootStore';
 
 const App = () => {
@@ -16,6 +23,22 @@ const App = () => {
     teamsStore,
   ]);
   useEffect(() => teamsStore.loadTeam(teamsStore.girlsTeam, girlsTeamIDs), [
+    teamsStore,
+  ]);
+
+  useEffect(() => teamsStore.loadTeam(teamsStore.eastTeam, eastTeamIDs), [
+    teamsStore,
+  ]);
+
+  useEffect(() => teamsStore.loadTeam(teamsStore.westTeam, westTeamIDs), [
+    teamsStore,
+  ]);
+
+  useEffect(() => teamsStore.loadTeam(teamsStore.centralTeam, centralTeamIDs), [
+    teamsStore,
+  ]);
+
+  useEffect(() => teamsStore.loadTeam(teamsStore.northTeam, northTeamIDs), [
     teamsStore,
   ]);
 

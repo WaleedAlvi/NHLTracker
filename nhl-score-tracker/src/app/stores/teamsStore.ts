@@ -6,6 +6,10 @@ import { ITeam } from '../models/team';
 export default class TeamsStore {
     boysTeam: ITeam[] = [];
     girlsTeam: ITeam[] = [];
+    westTeam: ITeam[] = [];
+    centralTeam: ITeam[] = [];
+    eastTeam: ITeam[] = [];
+    northTeam: ITeam[] = [];
     boysSchedule: IGames[] = [];
     girlsSchedule: IGames[] = [];
 

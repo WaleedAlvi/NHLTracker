@@ -13,6 +13,26 @@ const girlsTeamIDs: number[] = [
     teams.tamptaBayID,
   ];
 
+  const eastTeamIDs: number[] = [
+    teams.bostonID,
+    teams.pittsburghID,
+  ]
+
+  const westTeamIDs: number[] = [
+    teams.coloradoID,
+    teams.vegasID,
+  ]
+
+  const centralTeamIDs: number[] = [
+    teams.carolinaID,
+    teams.tamptaBayID,
+  ]
+
+  const northTeamIDs: number[] = [
+    teams.winnipegID,
+    teams.edmontonID,
+  ]
+
   const seasonStartDate: Date = new Date('2021-01-13');
   const seasonEndDate: Date = new Date('2021-05-8');
 
@@ -23,4 +43,8 @@ const girlsTeamIDs: number[] = [
       girlsTeamIDs,
       seasonStartDate,
       seasonEndDate,
+      eastTeamIDs,
+      westTeamIDs,
+      centralTeamIDs,
+      northTeamIDs,
   }
